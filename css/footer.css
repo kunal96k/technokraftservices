@@ -170,7 +170,6 @@
 	-o-transition:all 300ms ease;
 	-moz-transition:all 300ms ease;
 	transition:all 300ms ease;
-	font-family: 'Font Awesome 5 Brands';
 }
 
 .newsletter-widget .social-box li a:hover{

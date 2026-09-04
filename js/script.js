@@ -700,7 +700,37 @@
         wow.init();
     }
 
+    // Language Dropdown Handler (5 Target Languages: English, Marathi, Hindi, German, Arabic)
+    if ($('.language.dropdown').length) {
+        var LANG_NAMES = {
+            'en': 'English',
+            'mr': 'मराठी',
+            'hi': 'हिंदी',
+            'de': 'Deutsch',
+            'ar': 'العربية'
+        };
 
+        // Restore saved preference if exists
+        try {
+            var savedLang = localStorage.getItem('technokraft_lang');
+            if (savedLang && LANG_NAMES[savedLang]) {
+                $('.language.dropdown .dropdown-toggle').html('<i class="fa-solid fa-globe fa-fw"></i>' + LANG_NAMES[savedLang] + ' &nbsp;<span class="fa fa-angle-down"></span>');
+            }
+        } catch (e) {}
+
+        // Handle language selection click
+        $(document).on('click', '.language.dropdown .dropdown-menu a', function (e) {
+            e.preventDefault();
+            var langCode = $(this).attr('data-lang') || 'en';
+            var displayName = LANG_NAMES[langCode] || $(this).text().split('(')[0].trim();
+
+            $('.language.dropdown .dropdown-toggle').html('<i class="fa-solid fa-globe fa-fw"></i>' + displayName + ' &nbsp;<span class="fa fa-angle-down"></span>');
+
+            try {
+                localStorage.setItem('technokraft_lang', langCode);
+            } catch (err) {}
+        });
+    }
 
     /* ==========================================================================
        When document is Scrollig, do
